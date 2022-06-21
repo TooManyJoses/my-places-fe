@@ -1,5 +1,8 @@
+import UsersList from '../components/UsersList';
+import MOCKUSERS from '../../mockData/mockUsers.json';
+
 const Users = () => {
-  return <h2>USERS PAGE</h2>;
+  return <UsersList users={MOCKUSERS} />;
 };
 
 export default Users;

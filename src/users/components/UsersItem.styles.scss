@@ -1,0 +1,49 @@
+.user-item-container {
+  margin: 1rem;
+  width: calc(45% - 2rem);
+  min-width: 17.5rem;
+  a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    padding: 1rem;
+    color: white;
+    background: var(--card-background);
+  }
+
+  a:hover,
+  a:active {
+    background: var(--primary);
+  }
+
+  .user-item-content {
+    padding: 0;
+  }
+
+  .user-item-image {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+  }
+
+  .user-item-info {
+    h2 {
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: normal;
+      color: var(--primary);
+    }
+    h3 {
+      margin: 0;
+    }
+  }
+
+  &:hover h2,
+  &:active h2,
+  &:hover h3,
+  &:active h3 {
+    color: #292929;
+  }
+}
