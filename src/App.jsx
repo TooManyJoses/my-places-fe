@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import NavBar from './shared/components/NavBar/NavBar';
+import MainNavigation from './shared/components/NavBar/MainNavigation';
 import Users from './users/pages/Users';
 import NewPlace from './places/pages/NewPlace';
 
@@ -10,7 +10,7 @@ const Auth = () => {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<NavBar />}>
+      <Route path="/" element={<MainNavigation />}>
         <Route index element={<Users />} />
         <Route path="auth" element={<Auth />} />
         <Route path="/places/new" element={<NewPlace />} />
