@@ -45,8 +45,21 @@
   }
 }
 
+.map-container {
+  height: 15rem;
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .place-item-image {
     height: 20rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .place-item-actions {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
   }
 }
