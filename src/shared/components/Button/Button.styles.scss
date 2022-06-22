@@ -15,10 +15,12 @@
   }
 
   &:hover {
+    color: white;
     background: var(--primary);
     border-color: var(--primary);
   }
   &:active {
+    color: white;
     background: var(--primary-dark);
     border-color: var(--primary-dark);
   }
@@ -35,10 +37,12 @@
 
 .button-secondary {
   &:hover {
+    color: white;
     background: var(--secondary);
     border-color: var(--secondary);
   }
   &:active {
+    color: white;
     background: var(--secondary-dark);
     border-color: var(--secondary-dark);
   }

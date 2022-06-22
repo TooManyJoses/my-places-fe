@@ -1,4 +1,5 @@
 import UserItem from './UserItem';
+import Card from '../../shared/components/Card/Card';
 import './UsersList.styles.scss';
 
 const UsersList = ({ users }) => {
@@ -6,7 +7,9 @@ const UsersList = ({ users }) => {
     <div>
       {users.length === 0 ? (
         <div className="center">
-          <h2>No Users Found</h2>
+          <Card>
+            <h2>No Users Found</h2>
+          </Card>
         </div>
       ) : (
         <ul className="users-list">
