@@ -1,5 +1,5 @@
 import UserItem from './UserItem';
-import Card from '../../shared/components/Card/Card';
+import Card from '../../shared/components/Card';
 import './UsersList.styles.scss';
 
 const UsersList = ({ users }) => {

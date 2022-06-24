@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../../shared/components/Button/Button';
-import Card from '../../shared/components/Card/Card';
-import Map from '../../shared/components/Map/Map';
-import Modal from '../../shared/components/Modal/Modal';
+import Button from '../../shared/components/Button';
+import Card from '../../shared/components/Card';
+import Map from '../../shared/components/Map';
+import Modal from '../../shared/components/Modal';
 import './PlaceItem.styles.scss';
 
 const PlaceItem = ({ placeInfo }) => {

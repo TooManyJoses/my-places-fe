@@ -3,10 +3,10 @@ import MainHeader from './MainHeader';
 import { Link, Outlet } from 'react-router-dom';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
-import './MainNavigation.styles.scss';
-import Backdrop from '../Backdrop/Backdrop';
+import './index.styles.scss';
+import Backdrop from '../Backdrop';
 
-const MainNavigation = () => {
+const NavBar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   const handleDrawer = () => {
@@ -40,4 +40,4 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;
+export default NavBar;

@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react';
-import Input from '../../shared/components/Input/Input';
-import Button from '../../shared/components/Button/Button';
+import Input from '../../shared/components/Input';
+import Button from '../../shared/components/Button';
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
@@ -72,7 +72,7 @@ const NewPlace = () => {
         validators={[VALIDATOR_MINLENGTH(5)]}
       />
       <Input
-        id="description"
+        id="address"
         inputType="input"
         label="Address"
         errorText="Please enter valid address."
