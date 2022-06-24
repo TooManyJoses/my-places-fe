@@ -1,5 +1,5 @@
-import Button from '../../shared/components/Button';
-import Card from '../../shared/components/Card';
+import Button from '../../shared/components/Button/Button';
+import Card from '../../shared/components/Card/Card';
 import PlaceItem from './PlaceItem';
 import './PlaceList.styles.scss';
 

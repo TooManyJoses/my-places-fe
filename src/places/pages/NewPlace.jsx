@@ -1,6 +1,6 @@
 import { useCallback, useReducer } from 'react';
-import Input from '../../shared/components/Input';
-import Button from '../../shared/components/Button';
+import Input from '../../shared/components/Input/Input';
+import Button from '../../shared/components/Button/Button';
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,

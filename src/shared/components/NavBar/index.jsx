@@ -4,7 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
 import './index.styles.scss';
-import Backdrop from '../Backdrop';
+import Backdrop from '../Backdrop/Backdrop';
 
 const NavBar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
