@@ -1,50 +1,21 @@
-import { useCallback, useReducer } from 'react';
 import Input from '../../shared/components/Input/Input';
 import Button from '../../shared/components/Button/Button';
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from '../../shared/utils/validators';
-import './NewPlace.styles.scss';
-
-const initialFormState = {
-  inputs: {
-    title: { value: '', isValid: false },
-    description: { value: '', isValid: false },
-    address: { value: '', isValid: false },
-  },
-  isValid: false,
-};
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case 'INPUT_CHANGE':
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid },
-        },
-        isValid: formIsValid,
-      };
-    default:
-      return state;
-  }
-};
+import { useForm } from '../../shared/hooks/form-hook';
+import './PlaceForm.styles.scss';
 
 const NewPlace = () => {
-  const [formState, dispatch] = useReducer(formReducer, initialFormState);
-  const inputHandler = useCallback((id, value, isValid) => {
-    dispatch({ type: 'INPUT_CHANGE', value, isValid, inputId: id });
-  }, []);
+  const [formState, inputHandler] = useForm(
+    {
+      title: { value: '', isValid: false },
+      description: { value: '', isValid: false },
+      address: { value: '', isValid: false },
+    },
+    false
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,7 +24,7 @@ const NewPlace = () => {
   };
 
   return (
-    <form className="new-place-form" onSubmit={handleSubmit}>
+    <form className="place-form" onSubmit={handleSubmit}>
       <Input
         id="title"
         inputType="input"
@@ -79,9 +50,11 @@ const NewPlace = () => {
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE()]}
       />
-      <Button type="submit" disabled={!formState.isValid}>
-        ADD PLACE
-      </Button>
+      <div className="place-form-action">
+        <Button type="submit" disabled={!formState.isValid}>
+          ADD PLACE
+        </Button>
+      </div>
     </form>
   );
 };
