@@ -48,7 +48,7 @@ const UpdatePlace = () => {
         errorText="Please enter a valid title."
         onInput={inputHandler}
         initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
+        initialValidity={formState.inputs.title.isValid}
       />
       <Input
         id="description"
@@ -58,7 +58,7 @@ const UpdatePlace = () => {
         errorText="Please enter a valid description (min. 5 characters)."
         onInput={inputHandler}
         initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
+        initialValidity={formState.inputs.description.isValid}
       />
       <div className="place-form-action">
 
