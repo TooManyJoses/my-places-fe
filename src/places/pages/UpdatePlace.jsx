@@ -9,7 +9,6 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/utils/validators';
 import { useForm } from '../../shared/hooks/form-hook';
-import './PlaceForm.styles.scss';
 
 const UpdatePlace = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +62,7 @@ const UpdatePlace = () => {
           </Card>
         </div>
       ) : (
-        <form className="place-form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <Input
             id="title"
             inputType="input"
@@ -85,7 +84,7 @@ const UpdatePlace = () => {
             initialValue={formState.inputs.description.value}
             initialValidity={formState.inputs.description.isValid}
           />
-          <div className="place-form-action">
+          <div className="form-action">
             <Button type="submit" disabled={!formState.isValid}>
               UPDATE PLACE
             </Button>

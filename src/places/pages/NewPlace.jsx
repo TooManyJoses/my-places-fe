@@ -5,7 +5,6 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../shared/utils/validators';
 import { useForm } from '../../shared/hooks/form-hook';
-import './PlaceForm.styles.scss';
 
 const NewPlace = () => {
   const [formState, inputHandler] = useForm(
@@ -24,7 +23,7 @@ const NewPlace = () => {
   };
 
   return (
-    <form className="place-form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <Input
         id="title"
         inputType="input"
@@ -50,7 +49,7 @@ const NewPlace = () => {
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE()]}
       />
-      <div className="place-form-action">
+      <div className="form-action">
         <Button type="submit" disabled={!formState.isValid}>
           ADD PLACE
         </Button>
