@@ -12,7 +12,7 @@ import { useForm } from '../../shared/hooks/form-hook';
 import './PlaceForm.styles.scss';
 
 const UpdatePlace = () => {
-  const [ isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const { placeId } = useParams();
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -26,13 +26,15 @@ const UpdatePlace = () => {
   const placeToUpdate = MOCKPLACES.find((place) => place.id === placeId);
 
   useEffect(() => {
-    setFormData(
-      {
-        title: { value: placeToUpdate.title, isValid: true },
-        description: { value: placeToUpdate.description, isValid: true },
-      },
-      true
-    );
+    if (placeToUpdate) {
+      setFormData(
+        {
+          title: { value: placeToUpdate.title, isValid: true },
+          description: { value: placeToUpdate.description, isValid: true },
+        },
+        true
+      );
+    }
     setIsLoading(false);
   }, [placeToUpdate, setFormData]);
 

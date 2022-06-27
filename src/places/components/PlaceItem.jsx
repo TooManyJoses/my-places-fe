@@ -10,8 +10,13 @@ const PlaceItem = ({ placeInfo }) => {
     placeInfo;
 
   const [showMap, setShowMap] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const handleShowMap = () => setShowMap(!showMap);
+
+  const handleShowDelete = () => setShowDelete(!showDelete);
+
+  const handleDeleteConfirmed = () => alert('DELETING');
 
   return (
     <>
@@ -31,6 +36,28 @@ const PlaceItem = ({ placeInfo }) => {
           <Map center={location} zoom={16} />
         </div>
       </Modal>
+      <Modal
+        header="Are you sure?"
+        show={showDelete}
+        onCancel={handleShowDelete}
+        contentClass="place-item-modal-content"
+        footerClass="place-item-modal-actions"
+        footer={
+          <>
+            <Button secondary onClick={handleShowDelete}>
+              Cancel
+            </Button>
+            <Button danger onClick={handleDeleteConfirmed}>
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <p>
+          Do you want to proceed and delete this place from your list of places?
+          Once deleted all information will be lost.
+        </p>
+      </Modal>
       <li className="place-item">
         <Card className="place-item-container">
           <div className="place-item-image">
@@ -44,7 +71,9 @@ const PlaceItem = ({ placeInfo }) => {
           <div className="place-item-actions">
             <Button onClick={handleShowMap}>VIEW MAP</Button>
             <Button to={`/places/${id}`}>EDIT</Button>
-            <Button danger>DELETE</Button>
+            <Button onClick={handleShowDelete} danger>
+              DELETE
+            </Button>
           </div>
         </Card>
       </li>
