@@ -4,10 +4,7 @@ import Users from './users/pages/Users';
 import UserPlaces from './places/pages/UserPlaces';
 import UpdatePlace from './places/pages/UpdatePlace';
 import NewPlace from './places/pages/NewPlace';
-
-const Auth = () => {
-  return <div>Auth Placeholder</div>;
-};
+import Auth from './users/pages/Auth';
 
 function App() {
   return (
