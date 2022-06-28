@@ -10,7 +10,7 @@ const NavBar = () => {
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   const handleDrawer = () => {
-    setDrawerIsOpen(!drawerIsOpen);
+    setDrawerIsOpen(drawerOpenState => !drawerOpenState);
   };
 
   return (

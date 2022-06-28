@@ -12,9 +12,9 @@ const PlaceItem = ({ placeInfo }) => {
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const handleShowMap = () => setShowMap(!showMap);
+  const handleShowMap = () => setShowMap(showState => !showState);
 
-  const handleShowDelete = () => setShowDelete(!showDelete);
+  const handleShowDelete = () => setShowDelete(showDeleteState => !showDeleteState);
 
   const handleDeleteConfirmed = () => alert('DELETING');
 
