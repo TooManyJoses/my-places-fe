@@ -73,9 +73,9 @@ const PlaceItem = ({ placeInfo }) => {
           </div>
           <div className="place-item-actions">
             <Button onClick={handleShowMap}>VIEW MAP</Button>
-            {auth.isLoggedIn && <Button to={`/places/${id}`}>EDIT</Button>}
+            {auth.isLoggedIn && <Button inline to={`/places/${id}`}>EDIT</Button>}
             {auth.isLoggedIn && (
-              <Button onClick={handleShowDelete} danger>
+              <Button inline onClick={handleShowDelete} danger>
                 DELETE
               </Button>
             )}

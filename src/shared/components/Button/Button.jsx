@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 
 import './Button.styles.scss';
 
-const Button = ({ href, secondary, danger, children, to, size, type, onClick, disabled, exact}) => {
+const Button = ({ href, secondary, inline, danger, children, to, size, type, onClick, disabled, exact}) => {
   if (href) {
     return (
       <a
         className={`button button-${size || 'default'} ${secondary &&
-          'button-secondary'} ${danger && 'button-danger'}`}
+          'button-secondary'} ${danger && 'button-danger'} ${inline && 'inline'}`}
         href={href}
       >
         {children}
@@ -20,7 +20,7 @@ const Button = ({ href, secondary, danger, children, to, size, type, onClick, di
         to={to}
         exact={exact}
         className={`button button-${size || 'default'} ${secondary &&
-          'button-secondary'} ${danger && 'button-danger'}`}
+          'button-secondary'} ${danger && 'button-danger'} ${inline && 'inline'}`}
       >
         {children}
       </Link>
@@ -29,7 +29,7 @@ const Button = ({ href, secondary, danger, children, to, size, type, onClick, di
   return (
     <button
       className={`button button-${size || 'default'} ${secondary &&
-        'button-secondary'} ${danger && 'button-danger'}`}
+        'button-secondary'} ${danger && 'button-danger'} ${inline && 'inline'}`}
       type={type}
       onClick={onClick}
       disabled={disabled}

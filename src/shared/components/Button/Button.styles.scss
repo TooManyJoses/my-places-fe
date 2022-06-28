@@ -6,7 +6,6 @@
   background: white;
   color: var(--blackish);
   cursor: pointer;
-  margin-left: 1rem;
   text-decoration: none;
   display: inline-block;
 
@@ -72,4 +71,8 @@
 
 .button-big {
   font-size: 1.5rem;
+}
+
+.inline {
+  margin-left: 1rem;
 }
