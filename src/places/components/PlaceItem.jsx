@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '../../shared/components/Button/Button';
 import Card from '../../shared/components/Card/Card';
 import Map from '../../shared/components/Map/Map';
 import Modal from '../../shared/components/Modal/Modal';
+import { AuthContext } from '../../shared/context/auth.context';
 import './PlaceItem.styles.scss';
 
 const PlaceItem = ({ placeInfo }) => {
@@ -11,10 +12,12 @@ const PlaceItem = ({ placeInfo }) => {
 
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const auth = useContext(AuthContext);
 
-  const handleShowMap = () => setShowMap(showState => !showState);
+  const handleShowMap = () => setShowMap((showState) => !showState);
 
-  const handleShowDelete = () => setShowDelete(showDeleteState => !showDeleteState);
+  const handleShowDelete = () =>
+    setShowDelete((showDeleteState) => !showDeleteState);
 
   const handleDeleteConfirmed = () => alert('DELETING');
 
@@ -70,10 +73,12 @@ const PlaceItem = ({ placeInfo }) => {
           </div>
           <div className="place-item-actions">
             <Button onClick={handleShowMap}>VIEW MAP</Button>
-            <Button to={`/places/${id}`}>EDIT</Button>
-            <Button onClick={handleShowDelete} danger>
-              DELETE
-            </Button>
+            {auth.isLoggedIn && <Button to={`/places/${id}`}>EDIT</Button>}
+            {auth.isLoggedIn && (
+              <Button onClick={handleShowDelete} danger>
+                DELETE
+              </Button>
+            )}
           </div>
         </Card>
       </li>

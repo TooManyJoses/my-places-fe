@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../shared/context/auth.context';
 import { useForm } from '../../shared/hooks/form-hook';
 import Button from '../../shared/components/Button/Button';
 import Card from '../../shared/components/Card/Card';
@@ -8,6 +9,8 @@ import SignUpInputs from '../../shared/components/SignUp/SignUp';
 
 const Auth = () => {
   const [showLogin, setShowLogin] = useState(true);
+  const auth = useContext(AuthContext);
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: '', isValid: false },
@@ -42,6 +45,7 @@ const Auth = () => {
     event.preventDefault();
     console.log(formState.inputs);
     // TODO: call to BE
+    auth.login();
   };
 
   return (
