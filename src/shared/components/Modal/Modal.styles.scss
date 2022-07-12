@@ -9,6 +9,8 @@
   border-radius: 8px;
 
   .modal-header {
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
     width: 100%;
     padding: 1rem 0.5rem;
     background: var(--secondary);
