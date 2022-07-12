@@ -6,9 +6,13 @@ import Card from '../../shared/components/Card/Card';
 import './Auth.styles.scss';
 import LogInInputs from '../../shared/components/LogIn/LogIn';
 import SignUpInputs from '../../shared/components/SignUp/SignUp';
+import LoadingSpinner from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import ErrorModal from '../../shared/components/ErrorModal/ErrorModal';
 
 const Auth = () => {
   const [showLogin, setShowLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(undefined);
   const auth = useContext(AuthContext);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -41,33 +45,75 @@ const Auth = () => {
     setShowLogin((showLoginState) => !showLoginState);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
-    // TODO: call to BE
-    auth.login();
+    try {
+      setIsLoading(true);
+      let response;
+      if (showLogin) {
+        response = await fetch('http://localhost:5050/api/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+      } else {
+        response = await fetch('http://localhost:5050/api/users/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+      }
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      setIsLoading(false);
+      auth.login();
+    } catch (error) {
+      setError(error.message || 'Something went wrong. Plese try again.');
+    }
+  };
+
+  const handleErrorModal = () => {
+    setError(null);
+    setIsLoading(false);
   };
 
   return (
-    <Card className="auth-container">
-      <h2> Log In</h2>
-      <hr />
-      <form onSubmit={handleSubmit}>
-        {showLogin ? (
-          <LogInInputs inputHandler={inputHandler} />
-        ) : (
-          <SignUpInputs formState={formState} inputHandler={inputHandler} />
-        )}
-        <div className="form-action">
-          <Button secondary type="submit" disabled={!formState.isValid}>
-            {showLogin ? 'Log In' : 'Sign Up'}
-          </Button>
-        </div>
-      </form>
-      <Button onClick={handleSwitchDisplay}>
-        Show {showLogin ? 'Sign Up' : 'Log In'}
-      </Button>
-    </Card>
+    <>
+      <ErrorModal error={error} onClear={handleErrorModal} />
+      <Card className="auth-container">
+        {isLoading && <LoadingSpinner asOverlay />}
+        <h2> Log In</h2>
+        <hr />
+        <form onSubmit={handleSubmit}>
+          {showLogin ? (
+            <LogInInputs inputHandler={inputHandler} />
+          ) : (
+            <SignUpInputs formState={formState} inputHandler={inputHandler} />
+          )}
+          <div className="form-action">
+            <Button secondary type="submit" disabled={!formState.isValid}>
+              {showLogin ? 'Log In' : 'Sign Up'}
+            </Button>
+          </div>
+        </form>
+        <Button onClick={handleSwitchDisplay}>
+          Show {showLogin ? 'Sign Up' : 'Log In'}
+        </Button>
+      </Card>
+    </>
   );
 };
 
