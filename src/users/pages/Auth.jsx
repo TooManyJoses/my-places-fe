@@ -74,10 +74,10 @@ const Auth = () => {
           }),
         });
       }
-      const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message);
       }
+      const data = await response.json();
       setIsLoading(false);
       auth.login();
     } catch (error) {

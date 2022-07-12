@@ -4,8 +4,8 @@ import Card from '../../shared/components/Card/Card';
 import './UsersItem.styles.scss';
 
 const UserItem = ({ user }) => {
-  const { id, name, image, placeCount } = user;
-
+  const { id, name, image } = user;
+  const placeCount = user.places.length;
   return (
     <li className="user-item-container">
       <Card className="user-item-content">
@@ -16,7 +16,7 @@ const UserItem = ({ user }) => {
           <div className="user-item-info">
             <h2>{name}</h2>
             <h3>
-              {placeCount} {placeCount === 1 ? 'Place' : 'Places'}
+              {placeCount} {placeCount === 1 ? ' Place' : ' Places'}
             </h3>
           </div>
         </Link>
