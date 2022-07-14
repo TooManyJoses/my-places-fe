@@ -3,7 +3,7 @@ import Card from '../../shared/components/Card/Card';
 import PlaceItem from './PlaceItem';
 import './PlaceList.styles.scss';
 
-const PlaceList = ({ places }) => {
+const PlaceList = ({ places, onDelete }) => {
   return places.length === 0 ? (
     <div className="place-list center">
         <Card>
@@ -14,7 +14,7 @@ const PlaceList = ({ places }) => {
   ) : (
     <ul className="place-list">
       {places.map((place) => (
-        <PlaceItem key={place.id} placeInfo={place} />
+        <PlaceItem key={place.id} placeInfo={place} onDelete={onDelete} />
       ))}
     </ul>
   );

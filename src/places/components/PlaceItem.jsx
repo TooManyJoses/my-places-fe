@@ -1,16 +1,20 @@
 import { useState, useContext } from 'react';
+import { useHttpClient } from '../../shared/hooks/http-hook';
 import Button from '../../shared/components/Button/Button';
 import Card from '../../shared/components/Card/Card';
 import Map from '../../shared/components/Map/Map';
 import Modal from '../../shared/components/Modal/Modal';
 import { AuthContext } from '../../shared/context/auth.context';
 import './PlaceItem.styles.scss';
+import LoadingSpinner from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import ErrorModal from '../../shared/components/ErrorModal/ErrorModal';
 
-const PlaceItem = ({ placeInfo }) => {
+const PlaceItem = ({ placeInfo, onDelete }) => {
   const { id, image, title, description, address, location } = placeInfo;
 
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
 
   const handleShowMap = () => setShowMap((showState) => !showState);
@@ -18,10 +22,17 @@ const PlaceItem = ({ placeInfo }) => {
   const handleShowDelete = () =>
     setShowDelete((showDeleteState) => !showDeleteState);
 
-  const handleDeleteConfirmed = () => alert('DELETING');
+  const handleDeleteConfirmed = async () => {
+    setShowDelete((showDeleteState) => !showDeleteState);
+    try {
+      await sendRequest(`http://localhost:5050/api/places/${id}`, 'DELETE');
+      onDelete(id);
+    } catch (error) {}
+  };
 
   return (
     <>
+      <ErrorModal error={error} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={handleShowMap}
@@ -62,6 +73,7 @@ const PlaceItem = ({ placeInfo }) => {
       </Modal>
       <li className="place-item">
         <Card className="place-item-container">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item-image">
             <img src={image} alt={title} />
           </div>
