@@ -7,8 +7,7 @@ import { AuthContext } from '../../shared/context/auth.context';
 import './PlaceItem.styles.scss';
 
 const PlaceItem = ({ placeInfo }) => {
-  const { id, imageUrl, title, description, address, creator, location } =
-    placeInfo;
+  const { id, image, title, description, address, location } = placeInfo;
 
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -64,7 +63,7 @@ const PlaceItem = ({ placeInfo }) => {
       <li className="place-item">
         <Card className="place-item-container">
           <div className="place-item-image">
-            <img src={imageUrl} alt={title} />
+            <img src={image} alt={title} />
           </div>
           <div className="place-item-info">
             <h2>{title}</h2>
@@ -73,7 +72,11 @@ const PlaceItem = ({ placeInfo }) => {
           </div>
           <div className="place-item-actions">
             <Button onClick={handleShowMap}>VIEW MAP</Button>
-            {auth.isLoggedIn && <Button inline to={`/places/${id}`}>EDIT</Button>}
+            {auth.isLoggedIn && (
+              <Button inline to={`/places/${id}`}>
+                EDIT
+              </Button>
+            )}
             {auth.isLoggedIn && (
               <Button inline onClick={handleShowDelete} danger>
                 DELETE
