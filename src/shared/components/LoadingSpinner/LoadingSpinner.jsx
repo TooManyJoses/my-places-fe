@@ -1,4 +1,4 @@
-import './LoadingSpinner.css';
+import './LoadingSpinner.styles.scss';
 
 const LoadingSpinner = ({ asOverlay }) => {
   return (

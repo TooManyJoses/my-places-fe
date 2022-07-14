@@ -1,4 +1,5 @@
 import Input from '../Input/Input';
+import ImageUpload from '../ImageUpload/ImageUpload';
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -8,6 +9,7 @@ import {
 const SignUpInputs = ({ inputHandler, formState }) => {
   return (
     <>
+      <ImageUpload id="imageId" center />
       <Input
         id="name"
         inputType="input"
