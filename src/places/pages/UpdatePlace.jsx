@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import MOCKPLACES from '../../mockData/mockPlaces.json';
+import { useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../shared/context/auth.context';
+import { useHttpClient } from '../../shared/hooks/http-hook';
+import LoadingSpinner from '../../shared/components/LoadingSpinner/LoadingSpinner';
+import ErrorModal from '../../shared/components/ErrorModal/ErrorModal';
 import Card from '../../shared/components/Card/Card';
 import Input from '../../shared/components/Input/Input';
 import Button from '../../shared/components/Button/Button';
@@ -11,8 +14,11 @@ import {
 import { useForm } from '../../shared/hooks/form-hook';
 
 const UpdatePlace = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const { placeId } = useParams();
+  const [placeToUpdate, setPlaceToUpdate] = useState([]);
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -22,28 +28,42 @@ const UpdatePlace = () => {
     false
   );
 
-  const placeToUpdate = MOCKPLACES.find((place) => place.id === placeId);
-
   useEffect(() => {
-    if (placeToUpdate) {
-      setFormData(
-        {
-          title: { value: placeToUpdate.title, isValid: true },
-          description: { value: placeToUpdate.description, isValid: true },
-        },
-        true
-      );
-    }
-    setIsLoading(false);
-  }, [placeToUpdate, setFormData]);
+    const fetchUserPlaces = async () => {
+      try {
+        const data = await sendRequest(
+          `http://localhost:5050/api/places/${placeId}`
+        );
+        setPlaceToUpdate(data.place);
+        setFormData(
+          {
+            title: { value: data.place.title, isValid: true },
+            description: { value: data.place.description, isValid: true },
+          },
+          true
+        );
+      } catch (error) {}
+    };
+    fetchUserPlaces();
+  }, [sendRequest, setFormData, placeId]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
-    // TODO: call to BE
+    try {
+      await sendRequest(
+        `http://localhost:5050/api/places/${placeId}`,
+        'PATCH',
+        { 'Content-Type': 'application/json' },
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value,
+        })
+      );
+      navigate(`/${auth.userId}/places`);
+    } catch (error) {}
   };
 
-  if (!placeToUpdate) {
+  if (!placeToUpdate && !error) {
     return (
       <div className="center">
         <Card>
@@ -55,10 +75,11 @@ const UpdatePlace = () => {
 
   return (
     <>
+      <ErrorModal error={error} onClear={clearError} />
       {isLoading ? (
         <div className="center">
           <Card>
-            <h2>Loading...</h2>
+            <LoadingSpinner />
           </Card>
         </div>
       ) : (
