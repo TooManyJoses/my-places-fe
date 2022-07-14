@@ -16,7 +16,7 @@ const Users = () => {
       } catch (error) {}
     };
     fetchUsers();
-  }, []);
+  }, [sendRequest]);
 
   return (
     <>

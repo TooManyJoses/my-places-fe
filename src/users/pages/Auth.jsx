@@ -47,9 +47,10 @@ const Auth = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    let data;
     try {
       if (showLogin) {
-        await sendRequest(
+        data = await sendRequest(
           'http://localhost:5050/api/users/login',
           'POST',
           {
@@ -61,7 +62,7 @@ const Auth = () => {
           })
         );
       } else {
-        await sendRequest(
+        data = await sendRequest(
           'http://localhost:5050/api/users/signup',
           'POST',
           { 'Content-Type': 'application/json' },
@@ -72,7 +73,7 @@ const Auth = () => {
           })
         );
       }
-      auth.login();
+      auth.login(data.user.id);
     } catch (error) {}
   };
 
