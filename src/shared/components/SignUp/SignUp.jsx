@@ -31,7 +31,7 @@ const SignUpInputs = ({ inputHandler, formState }) => {
         inputType="input"
         type="password"
         label="Password"
-        errorText="Please enter valid password (at least 5 characters)"
+        errorText="Please enter valid password (at least 8 characters)"
         onInput={inputHandler}
         validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(8)]}
       />

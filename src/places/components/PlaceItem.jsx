@@ -10,7 +10,8 @@ import LoadingSpinner from '../../shared/components/LoadingSpinner/LoadingSpinne
 import ErrorModal from '../../shared/components/ErrorModal/ErrorModal';
 
 const PlaceItem = ({ placeInfo, onDelete }) => {
-  const { id, image, title, description, address, location } = placeInfo;
+  const { id, image, title, description, address, creator, location } =
+    placeInfo;
 
   const [showMap, setShowMap] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -84,12 +85,12 @@ const PlaceItem = ({ placeInfo, onDelete }) => {
           </div>
           <div className="place-item-actions">
             <Button onClick={handleShowMap}>VIEW MAP</Button>
-            {auth.isLoggedIn && (
+            {auth.userId === creator && (
               <Button inline to={`/places/${id}`}>
                 EDIT
               </Button>
             )}
-            {auth.isLoggedIn && (
+            {auth.userId === creator && (
               <Button inline onClick={handleShowDelete} danger>
                 DELETE
               </Button>
