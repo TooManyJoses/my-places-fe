@@ -30,6 +30,7 @@ const Auth = () => {
           ...formState.inputs,
           name: undefined,
           confirmPassword: undefined,
+          image: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -38,6 +39,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: { value: '', isValid: false },
+          image: { value: null, isValid: false },
         },
         false
       );
@@ -45,8 +47,11 @@ const Auth = () => {
     setShowLogin((showLoginState) => !showLoginState);
   };
 
+  console.log('formState', formState)
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(formState.inputs)
     let data;
     try {
       if (showLogin) {
@@ -82,7 +87,7 @@ const Auth = () => {
       <ErrorModal error={error} onClear={clearError} />
       <Card className="auth-container">
         {isLoading && <LoadingSpinner asOverlay />}
-        <h2> Log In</h2>
+        <h2>{showLogin ? 'Log In' : 'Sign-Up'}</h2>
         <hr />
         <form onSubmit={handleSubmit}>
           {showLogin ? (

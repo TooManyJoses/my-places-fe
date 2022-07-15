@@ -6,10 +6,10 @@ import {
   VALIDATOR_REQUIRE,
 } from '../../utils/validators';
 
-const SignUpInputs = ({ inputHandler, formState }) => {
+const SignUpInputs = ({ inputHandler }) => {
   return (
     <>
-      <ImageUpload id="imageId" center />
+      <ImageUpload id="image" center onInput={inputHandler}/>
       <Input
         id="name"
         inputType="input"
