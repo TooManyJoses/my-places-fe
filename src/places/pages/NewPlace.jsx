@@ -11,6 +11,7 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from '../../shared/utils/validators';
+import ImageUpload from '../../shared/components/ImageUpload/ImageUpload';
 
 const NewPlace = () => {
   const auth = useContext(AuthContext);
@@ -28,17 +29,11 @@ const NewPlace = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await sendRequest(
-        'http://localhost:5050/api/places',
-        'POST',
-        { 'Content-Type': 'application/json' },
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value,
-          address: formState.inputs.address.value,
-          creator: auth.userId,
-        })
-      );
+      const formData = new FormData();
+      formData.append('title', formState.inputs.title.value);
+      formData.append('description', formState.inputs.description.value);
+      formData.append('image', formState.inputs.image.value);
+      await sendRequest('http://localhost:5050/api/places', 'POST', formData);
       navigate(`/${auth.userId}/places`);
     } catch (error) {}
   };
@@ -48,6 +43,7 @@ const NewPlace = () => {
       <ErrorModal error={error} onClear={clearError} />
       <form className="form" onSubmit={handleSubmit}>
         {isLoading && <LoadingSpinner asOverlay />}
+        <ImageUpload id="image" center onInput={inputHandler} />
         <Input
           id="title"
           inputType="input"
