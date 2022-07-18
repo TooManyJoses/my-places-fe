@@ -47,35 +47,32 @@ const Auth = () => {
     setShowLogin((showLoginState) => !showLoginState);
   };
 
-  console.log('formState', formState)
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs)
     let data;
     try {
       if (showLogin) {
         data = await sendRequest(
           'http://localhost:5050/api/users/login',
           'POST',
-          {
-            'Content-Type': 'application/json',
-          },
           JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
-          })
+          }),
+          {
+            'Content-Type': 'application/json',
+          }
         );
       } else {
+        const formData = new FormData();
+        formData.append('name', formState.inputs.name.value);
+        formData.append('email', formState.inputs.email.value);
+        formData.append('password', formState.inputs.password.value);
+        formData.append('image', formState.inputs.image.value);
         data = await sendRequest(
           'http://localhost:5050/api/users/signup',
           'POST',
-          { 'Content-Type': 'application/json' },
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          })
+          formData
         );
       }
       auth.login(data.user.id);
