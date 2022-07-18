@@ -53,11 +53,11 @@ const UpdatePlace = () => {
       await sendRequest(
         `http://localhost:5050/api/places/${placeId}`,
         'PATCH',
-        { 'Content-Type': 'application/json' },
         JSON.stringify({
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
-        })
+        }),
+        { 'Content-Type': 'application/json' }
       );
       navigate(`/${auth.userId}/places`);
     } catch (error) {}

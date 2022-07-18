@@ -20,6 +20,7 @@ const NewPlace = () => {
       title: { value: '', isValid: false },
       description: { value: '', isValid: false },
       address: { value: '', isValid: false },
+      image: { value: null, isValid: false },
     },
     false
   );
@@ -32,7 +33,9 @@ const NewPlace = () => {
       const formData = new FormData();
       formData.append('title', formState.inputs.title.value);
       formData.append('description', formState.inputs.description.value);
+      formData.append('address', formState.inputs.address.value);
       formData.append('image', formState.inputs.image.value);
+      formData.append('creator', auth.userId);
       await sendRequest('http://localhost:5050/api/places', 'POST', formData);
       navigate(`/${auth.userId}/places`);
     } catch (error) {}
