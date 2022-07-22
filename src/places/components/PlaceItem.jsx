@@ -27,7 +27,7 @@ const PlaceItem = ({ placeInfo, onDelete }) => {
     setShowDelete((showDeleteState) => !showDeleteState);
     try {
       await sendRequest(
-        `http://localhost:5050/api/places/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/places/${id}`,
         'DELETE',
         null,
         { Authorization: 'Bearer ' + auth.token }
@@ -81,7 +81,7 @@ const PlaceItem = ({ placeInfo, onDelete }) => {
         <Card className="place-item-container">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item-image">
-            <img src={`http://localhost:5050/${image}`} alt={title} />
+            <img src={`${process.env.REACT_APP_ASSET_URL}/${image}`} alt={title} />
           </div>
           <div className="place-item-info">
             <h2>{title}</h2>
